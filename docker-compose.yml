@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  django-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+  dash-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dash
+    ports:
+      - "8050:8050"
+    environment:
+      - API_URL=http://django-app:8000/api/mytable/
+    depends_on:
+      - django-app
