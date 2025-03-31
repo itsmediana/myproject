@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.8"
 
 services:
   django-app:
@@ -20,3 +20,17 @@ services:
       - API_URL=http://django-app:8000/api/mytable/
     depends_on:
       - django-app
+
+  locust:
+    build:
+      context: .
+      dockerfile: Dockerfile.locust
+    ports:
+      - "8089:8089"
+    depends_on:
+      - django-app
+    command:
+      - locust
+      - -f
+      - /locustfile.py
+      - --host=https://shiny-tribble-7vpx7w6qv4942gvg-8000.app.github.dev

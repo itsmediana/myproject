@@ -1,0 +1,10 @@
+FROM locustio/locust:2.23.1
+
+# Копируем файл locustfile.py в контейнер
+COPY locustfile.py /locustfile.py
+
+# Просмотр содержимого директории для проверки
+RUN ls -l /locustfile.py
+
+# Запускаем Locust с указанием файла и хоста
+CMD ["locust", "-f", "/locustfile.py", "--host=http://django-app:8000"]
