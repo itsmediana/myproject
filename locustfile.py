@@ -5,4 +5,8 @@ class WebsiteUser(HttpUser):
 
     @task
     def load_api_data(self):
-        self.client.get("https://shiny-tribble-7vpx7w6qv4942gvg-8000.app.github.dev/api/mytable/")
+        # Используем внутренний адрес Django-приложения
+        self.client.get("/api/mytable/")
+        
+        # ИЛИ если нужны разные эндпоинты:
+        # self.client.get("/api/other_endpoint/")
